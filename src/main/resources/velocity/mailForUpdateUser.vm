@@ -1,0 +1,6 @@
+Hello $email,<br/>
+
+	You have update your account information, your register status is $status, this mail just give you a remind. <br/> Please keep your account in security.<br/>
+	
+Yours,<br/>
+Jack

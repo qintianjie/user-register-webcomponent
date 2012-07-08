@@ -23,9 +23,8 @@ import com.colorcc.user.register.form.UserForm;
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
-
 	private final static Logger logger = LoggerFactory.getLogger(UserController.class);
-
+	
 	@Autowired
 	UserService userService;
 
@@ -64,11 +63,21 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/doCreateUser", method = RequestMethod.POST)
-	public String doCreateUser(@ModelAttribute UserForm userForm) {
+	public String doCreateUser(@ModelAttribute @Valid UserForm userForm, BindingResult result) {
+		if (userForm.getPassword().trim().length() > 6) {
+			result.rejectValue("password", null, "Password length is more than 6 chars.");
+		}
+
+		if (result.hasErrors()) {
+			if (logger.isErrorEnabled()) {
+				logger.error("There are " + result.getErrorCount() + " errors during validating.");
+			}
+			return "user/create";
+		}
+		
 		if (logger.isInfoEnabled()) {
-			logger.info("Create user ...");
 			if (userForm != null) {
-				logger.info("User Infor : " + userForm.getEmail() + "\t" + userForm.getPassword() + "\t" + userForm.getStatus());
+				logger.info("Create new user, information is : " + userForm.getEmail() + "\t" + userForm.getPassword() + "\t" + userForm.getStatus());
 			}
 		}
 
@@ -90,7 +99,6 @@ public class UserController {
 
 			userService.createUser(userBean);
 		}
-
 		return "redirect:/users";
 	}
 
@@ -115,7 +123,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/{id}/doUpdateUser", method = RequestMethod.PUT)
-	public String doUpdateUser(@ModelAttribute @Valid UserForm userForm, BindingResult result, Error errors) {
+	public String doUpdateUser(@ModelAttribute @Valid UserForm userForm, BindingResult result) {
 
 		if (userForm.getPassword().trim().length() > 6) {
 			result.rejectValue("password", null, "Password length is more than 6 chars.");

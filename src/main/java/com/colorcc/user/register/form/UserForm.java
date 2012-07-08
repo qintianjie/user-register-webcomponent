@@ -8,15 +8,17 @@ import com.colorcc.user.register.validation.IntegerScopeValidation;
 public class UserForm implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private int id;
 	@NotNull
-	@Size(min=5, max = 40)
+	@Size(min = 5, max = 40)
 	private String email;
+
+	@Size(min = 6, max = 20)
 	private String password;
 
-	// @Digits(integer=1, fraction = 0)
-	// @Min(0)
+	// @Digits(integer=3, fraction = 0)
+	// @Min(1)
 	// @Max(127)
 	@IntegerScopeValidation(min = 0, max = 100, message = "{integer.scope.validation}")
 	private int status;
