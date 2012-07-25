@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.colorcc.rest.user.bean.UserBean;
-import com.colorcc.rest.user.service.UserService;
+import com.colorcc.user.bean.UserBean;
 import com.colorcc.user.register.form.UserForm;
+import com.colorcc.user.service.UserService;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -64,8 +64,8 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/doCreateUser", method = RequestMethod.POST)
 	public String doCreateUser(@ModelAttribute @Valid UserForm userForm, BindingResult result) {
-		if (userForm.getPassword().trim().length() > 6) {
-			result.rejectValue("password", null, "Password length is more than 6 chars.");
+		if (userForm.getPassword().trim().length() > 20) {
+			result.rejectValue("password", null, "Password length is more than 20 chars.");
 		}
 
 		if (result.hasErrors()) {

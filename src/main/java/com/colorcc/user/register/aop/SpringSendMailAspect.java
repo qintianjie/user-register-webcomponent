@@ -7,7 +7,6 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.velocity.app.VelocityEngine;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
@@ -41,7 +40,7 @@ public class SpringSendMailAspect {
 
 	}
 
-	@AfterReturning(pointcut = "sendMailPointcut()")
+	// @AfterReturning(pointcut = "sendMailPointcut()")
 	public void sendMail(JoinPoint thisJoinPoint) {
 		Object[] args = thisJoinPoint.getArgs();
 		if (args != null & args.length > 0) {

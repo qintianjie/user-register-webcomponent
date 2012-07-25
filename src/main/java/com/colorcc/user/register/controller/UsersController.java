@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.colorcc.rest.user.bean.UserBean;
-import com.colorcc.rest.user.service.UserService;
+import com.colorcc.user.bean.UserBean;
+import com.colorcc.user.service.UserService;
 
 @Controller
 @RequestMapping(value = "/users")
